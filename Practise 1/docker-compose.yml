@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:16
+    container_name: semaphore_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: semaphore_db
+      POSTGRES_USER: semaphore_user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pgsql_data:/var/lib/postgresql/data
+    networks:
+      - semaphore_net
+
+  semaphore:
+    image: semaphoreui/semaphore:latest
+    container_name: semaphore_app
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      SEMAPHORE_ADMIN_PASSWORD: AdminPassword
+      SEMAPHORE_ADMIN_NAME: "Admin Admin"
+      SEMAPHORE_ADMIN_EMAIL: admin@local.com
+      SEMAPHORE_ADMIN: admin
+      SEMAPHORE_DB_USER: semaphore_user
+      SEMAPHORE_DB_PASS: password
+      SEMAPHORE_DB_HOST: db
+      SEMAPHORE_DB_PORT: 5432
+      SEMAPHORE_DB: semaphore_db
+      SEMAPHORE_DB_DIALECT: postgres
+      SEMAPHORE_ACCESS_KEY_ENCRYPTION: 017c84cfe35e4d1861417cda1fd90e91
+    ports:
+      - "3000:3000" # Сопоставляем порт 3000 контейнера с портом 3000 хоста
+    volumes:
+      - semaphore_data:/tmp/semaphore
+      - /home/admuser/playbooks:/opt/ansible/playbooks:ro
+    networks:
+      - semaphore_net
+
+volumes:
+   pgsql_data:
+   semaphore_data:
+
+networks:
+  semaphore_net:
