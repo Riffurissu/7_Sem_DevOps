@@ -1,9 +1,9 @@
-# syntax=docker/dockerfile:1.7
-
 FROM node:22-alpine AS builder
 WORKDIR /src
 
 COPY package.json ./
+COPY package-lock.json ./
+RUN npm ci --ignore-scripts
 COPY build.mjs preview.mjs ./
 COPY src ./src
 

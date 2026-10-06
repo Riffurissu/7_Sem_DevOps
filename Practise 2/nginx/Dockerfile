@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:1.7
-
 FROM alpine:3.20 AS cert-builder
 RUN apk add --no-cache ca-certificates
 

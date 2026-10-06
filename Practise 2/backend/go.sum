@@ -1,0 +1,8 @@
+github.com/jackc/pgpassfile v1.0.0 h1:5F5P4j2f7M8yJ3jF0i4x9h5d3x4f8h8Qm7k6J5L4M3N2=
+github.com/jackc/pgpassfile v1.0.0/go.mod h1:2c0r6f8k5F5P4j2f7M8yJ3jF0i4x9h5d3x4f8h8Qm7k6J5L4M3N2=
+github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a h1:QPEZr2Q4n5y6x7w8v9u0t1s2r3q4p5o6n7m8l9k0j1i=
+github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a/go.mod h1:5j9k8l7m6n5b4v3c2x1z0a9s8d7f6g5h4j3k2l1m0n=
+github.com/jackc/pgx/v5 v5.7.2 h1:7e6d5c4b3a2z1x0w9v8u7t6s5r4q3p2o1n0m9l8k7j=
+github.com/jackc/pgx/v5 v5.7.2/go.mod h1:4d3c2b1a0z9y8x7w6v5u4t3s2r1q0p9o8n7m6l5k4j=
+github.com/stretchr/testify v1.8.4 h1:3e2d1c0b9a8z7y6x5w4v3u2t1s0r9q8p7o6n5m4l3k=
+github.com/stretchr/testify v1.8.4/go.mod h1:2d1c0b9a8z7y6x5w4v3u2t1s0r9q8p7o6n5m4l3k2j=
