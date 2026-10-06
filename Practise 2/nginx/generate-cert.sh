@@ -9,8 +9,8 @@ mkdir -p "$SSL_DIR"
 openssl req -x509 -nodes -newkey rsa:2048 -days 365 \
     -keyout "$SSL_DIR/server.key" \
     -out "$SSL_DIR/server.crt" \
-    -subj "/CN=devops-stack.local" \
-    -addext "subjectAltName=DNS:devops-stack.local,DNS:localhost,IP:127.0.0.1"
+    -subj "/CN=devops.local" \
+    -addext "subjectAltName=DNS:devops.local,DNS:localhost,IP:127.0.0.1"
 
 chmod 600 "$SSL_DIR/server.key"
 chmod 644 "$SSL_DIR/server.crt"
