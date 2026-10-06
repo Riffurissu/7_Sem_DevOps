@@ -108,11 +108,45 @@ BuildKit secrets используются Compose для версии выпус
 curl -I http://localhost
 curl -k https://localhost:8443/health
 curl -k https://localhost:8443/api/notes
-curl -k -X POST https://localhost:8443/api/notes -H 'Content-Type: application/json' -d '{"title":"first","body":"hello"}'
+curl -k -X POST https://localhost:8443/api/notes -H 'Content-Type: application/json' -d '{"title":"Заметка curl","body":"Создано с помощью curl"}'
+curl -k -X DELETE https://localhost:8443/api/notes/1
 openssl s_client -connect localhost:8443 -showcerts
 ```
 
 Фронтенд доступен по адресу `https://localhost:8443`. Стоит отметить, что так как сертификата является самоподписанным, то браузер покажет предупреждение.
+
+#### Adminer
+
+Adminer запускается через профиль `debug` и подключается к PostgreSQL по имени сервиса `db` внутри сети Compose:
+
+```bash
+sudo docker compose -f docker-compose.yml --profile debug up -d
+```
+
+После запуска открыть `http://localhost:8081` и указать:
+
+| Поле Adminer | Значение |
+| --- | --- |
+| Система | `PostgreSQL` |
+| Сервер | `db` |
+| Пользователь | `notes` |
+| Пароль | значение `DB_PASSWORD` из `.env` |
+| База данных | `notes` |
+
+Важно использовать `db`, а не `localhost`: Adminer работает в отдельном
+контейнере и обращается к PostgreSQL через DNS-имя Compose-сервиса.
+
+Остановить только Adminer:
+
+```bash
+sudo docker compose -f docker-compose.yml --profile debug stop adminer
+```
+
+Проверить его состояние:
+
+```bash
+sudo docker compose -f docker-compose.yml --profile debug ps adminer
+```
 
 #### Debug-режим
 
@@ -129,14 +163,6 @@ curl http://localhost:8080/healthz
 curl http://localhost:8080/health
 curl http://localhost:8000/health
 ```
-
-#### Adminer
-
-```bash
-sudo docker compose -f docker-compose.yml --profile debug up -d
-```
-
-Adminer доступен по адресу `http://localhost:8081`.
 
 #### Диагностика
 

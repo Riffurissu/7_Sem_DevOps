@@ -22,8 +22,13 @@ function renderNotes(notes) {
         <h3>${escapeHTML(note.title)}</h3>
         <p>${escapeHTML(note.body || "Без описания")}</p>
       </div>
+      <button class="delete-note" type="button" data-note-id="${note.id}" aria-label="Удалить заметку ${escapeHTML(note.title)}" title="Удалить заметку">×</button>
     </article>
   `).join("");
+
+  notesElement.querySelectorAll(".delete-note").forEach((button) => {
+    button.addEventListener("click", () => deleteNote(button.dataset.noteId));
+  });
 }
 
 function escapeHTML(value) {
@@ -54,6 +59,18 @@ async function loadNotes() {
     renderNotes(await response.json());
   } catch {
     notesElement.innerHTML = '<p class="empty error-text">Не получилось загрузить заметки. Проверьте бэкенд.</p>';
+  }
+}
+
+async function deleteNote(id) {
+  if (!window.confirm("Удалить эту заметку?")) return;
+
+  try {
+    const response = await fetch(`/api/notes/${id}`, { method: "DELETE" });
+    if (!response.ok) throw new Error("Не получилось удалить заметку");
+    await loadNotes();
+  } catch {
+    messageElement.textContent = "Не получилось удалить заметку.";
   }
 }
 

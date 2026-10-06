@@ -23,6 +23,7 @@ func NewHandler() http.Handler {
 	mux.HandleFunc("GET /api/notes", listNotes)
 	mux.HandleFunc("POST /api/notes", addNote)
 	mux.HandleFunc("GET /api/notes/{id}", getNote)
+	mux.HandleFunc("DELETE /api/notes/{id}", deleteNote)
 	return mux
 }
 
@@ -110,6 +111,31 @@ func getNote(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	writeJSON(w, http.StatusOK, note)
+}
+
+func deleteNote(w http.ResponseWriter, r *http.Request) {
+	if Pool == nil {
+		writeJSON(w, http.StatusServiceUnavailable, map[string]string{"error": "database unavailable"})
+		return
+	}
+
+	id, err := strconv.ParseInt(r.PathValue("id"), 10, 64)
+	if err != nil {
+		writeJSON(w, http.StatusBadRequest, map[string]string{"error": "invalid id"})
+		return
+	}
+
+	result, err := Pool.Exec(r.Context(), "DELETE FROM notes WHERE id = $1", id)
+	if err != nil {
+		writeJSON(w, http.StatusInternalServerError, map[string]string{"error": "db error"})
+		return
+	}
+	if result.RowsAffected() == 0 {
+		writeJSON(w, http.StatusNotFound, map[string]string{"error": "not found"})
+		return
+	}
+
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func writeJSON(w http.ResponseWriter, code int, value any) {
