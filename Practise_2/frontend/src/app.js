@@ -15,9 +15,9 @@ function renderNotes(notes) {
     return;
   }
 
-  notesElement.innerHTML = notes.map((note) => `
+  notesElement.innerHTML = notes.map((note, index) => `
     <article class="note-card">
-      <div class="note-index">${String(note.id).padStart(2, "0")}</div>
+      <div class="note-index">${String(index + 1).padStart(2, "0")}</div>
       <div>
         <h3>${escapeHTML(note.title)}</h3>
         <p>${escapeHTML(note.body || "Без описания")}</p>
