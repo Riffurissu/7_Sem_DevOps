@@ -165,6 +165,14 @@ curl http://localhost/health
 curl http://localhost:8000/health
 ```
 
+##### Debug-режим + Adminer
+
+Запуск Adminer вместе с nginx в режиме debug
+
+```bash
+sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose -f docker-compose.yml -f docker-compose.override.yml --profile debug up --build
+```
+
 #### Диагностика
 
 ```bash
