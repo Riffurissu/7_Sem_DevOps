@@ -34,7 +34,7 @@ services:
       - "3000:3000" # Сопоставляем порт 3000 контейнера с портом 3000 хоста
     volumes:
       - semaphore_data:/tmp/semaphore
-      - /home/admuser/playbooks:/opt/ansible/playbooks:ro
+      # - /home/admuser/playbooks:/opt/ansible/playbooks:ro # локальный репозиторий плейбуков
     networks:
       - semaphore_net
 
