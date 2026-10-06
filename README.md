@@ -10,7 +10,7 @@
 cd "Practise 2"
 ```
 
-Запустить [файл docker-compose.yml](<Practise 1/docker-compose.yml>):
+Запустить файл [docker-compose.yml](<Practise 1/docker-compose.yml>):
 
 ```bash
 sudo docker compose up --build
@@ -22,7 +22,7 @@ admin
 AdminPassword
 ```
 
-В качестве тестового примера предлагается следующий [плейбук для развёртывание тестового веб-сервера nginx](<Practise 1/ansible-playbook.yml>). Он расчитан на использование в локальном репозитории плейбуков. Для того, чтобы данный файл было видно внутри контейнера, необходимо раскомментировать следюущую строку в [docker-compose.yml](<Practise 1/docker-compose.yml>):
+В качестве тестового примера предлагается следующий [плейбук](<Practise 1/ansible-playbook.yml>) для развёртывание тестового веб-сервера nginx. Он расчитан на использование в локальном репозитории плейбуков. Для того, чтобы данный файл было видно внутри контейнера, необходимо раскомментировать следюущую строку в [docker-compose.yml](<Practise 1/docker-compose.yml>):
 
 - *Было*
 
