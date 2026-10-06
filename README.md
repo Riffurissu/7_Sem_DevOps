@@ -117,11 +117,21 @@ openssl s_client -connect localhost:8443 -showcerts
 
 #### Adminer
 
-Adminer запускается через профиль `debug` и подключается к PostgreSQL по имени сервиса `db` внутри сети Compose:
+Adminer запускается через профиль debug и подключается к PostgreSQL по имени сервиса db внутри сети Compose:
 
 ```bash
-sudo docker compose -f docker-compose.yml --profile debug up -d
+sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose -f docker-compose.yml up -d --build
 ```
+
+Затем запустить Adminer через профиль `debug`:
+
+```bash
+sudo docker compose -f docker-compose.yml --profile debug up -d adminer
+```
+
+Эта команда только скачивает готовый образ Adminer и запускает контейнер;
+BuildKit для неё не используется. Adminer подключается к PostgreSQL по имени
+сервиса `db` внутри сети Compose.
 
 После запуска открыть `http://localhost:8081` и указать:
 
@@ -153,7 +163,7 @@ sudo docker compose -f docker-compose.yml --profile debug ps adminer
 Debug override отключает TLS для nginx, публикует HTTP на `8080` и backend на `8000`:
 
 ```bash
-sudo docker compose -f docker-compose.yml -f docker-compose.override.yml up -d --build
+sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose -f docker-compose.yml -f docker-compose.override.yml up -d --build
 ```
 
 Проверить debug-сервисы:
