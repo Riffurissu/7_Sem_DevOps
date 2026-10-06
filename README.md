@@ -151,7 +151,7 @@ sudo docker compose -f docker-compose.yml --profile debug ps adminer
 
 #### Debug-режим
 
-Debug override отключает TLS для nginx, публикует HTTP на `8080` и backend на `8000`:
+Debug override отключает TLS для nginx, публикует HTTP на `80` и backend на `8000`:
 
 ```bash
 sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose -f docker-compose.yml -f docker-compose.override.yml up --build
@@ -160,8 +160,8 @@ sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose -f docker-compo
 Проверить debug-сервисы:
 
 ```bash
-curl http://localhost:8080/healthz
-curl http://localhost:8080/health
+curl http://localhost/healthz
+curl http://localhost/health
 curl http://localhost:8000/health
 ```
 
