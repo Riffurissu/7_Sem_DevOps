@@ -19,6 +19,3 @@ RUN chown -R nginx:nginx /etc/nginx/ssl \
     && chmod 644 /etc/nginx/ssl/server.crt
 
 EXPOSE 80 8443
-
-HEALTHCHECK --interval=10s --timeout=3s --retries=5 \
-    CMD wget -qO- --no-check-certificate https://127.0.0.1:8443/healthz || exit 1
