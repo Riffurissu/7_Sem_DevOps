@@ -1,0 +1,6 @@
+.env
+release-version.txt
+nginx/ssl/
+**/node_modules/
+**/dist/
+*.log
