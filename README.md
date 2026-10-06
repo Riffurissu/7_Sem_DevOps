@@ -120,18 +120,10 @@ openssl s_client -connect localhost:8443 -showcerts
 Adminer запускается через профиль debug и подключается к PostgreSQL по имени сервиса db внутри сети Compose:
 
 ```bash
-sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose -f docker-compose.yml up -d --build
+sudo DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker compose -f docker-compose.yml --profile debug up --build
 ```
 
-Затем запустить Adminer через профиль `debug`:
-
-```bash
-sudo docker compose -f docker-compose.yml --profile debug up -d adminer
-```
-
-Эта команда только скачивает готовый образ Adminer и запускает контейнер;
-BuildKit для неё не используется. Adminer подключается к PostgreSQL по имени
-сервиса `db` внутри сети Compose.
+Adminer подключается к PostgreSQL по имени сервиса `db` внутри сети Compose.
 
 После запуска открыть `http://localhost:8081` и указать:
 
@@ -143,8 +135,7 @@ BuildKit для неё не используется. Adminer подключае
 | Пароль | значение `DB_PASSWORD` из `.env` |
 | База данных | `notes` |
 
-Важно использовать `db`, а не `localhost`: Adminer работает в отдельном
-контейнере и обращается к PostgreSQL через DNS-имя Compose-сервиса.
+Важно использовать `db`, а не `localhost`: Adminer работает в отдельном контейнере и обращается к PostgreSQL через DNS-имя Compose-сервиса.
 
 Остановить только Adminer:
 
