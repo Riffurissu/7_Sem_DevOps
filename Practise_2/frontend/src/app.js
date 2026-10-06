@@ -11,7 +11,7 @@ function setHealth(text, state) {
 
 function renderNotes(notes) {
   if (notes.length === 0) {
-    notesElement.innerHTML = '<p class="empty">No notes yet. Add the first one.</p>';
+    notesElement.innerHTML = '<p class="empty">Заметок ещё нет. Добавьте первую.</p>';
     return;
   }
 
@@ -20,7 +20,7 @@ function renderNotes(notes) {
       <div class="note-index">${String(note.id).padStart(2, "0")}</div>
       <div>
         <h3>${escapeHTML(note.title)}</h3>
-        <p>${escapeHTML(note.body || "No body")}</p>
+        <p>${escapeHTML(note.body || "Без описания")}</p>
       </div>
     </article>
   `).join("");
@@ -40,20 +40,20 @@ async function checkHealth() {
   try {
     const response = await fetch("/health");
     const payload = await response.json();
-    setHealth(payload.db ? "Backend online" : "Backend degraded", payload.db ? "ok" : "warning");
+    setHealth(payload.db ? "Бэкенд запущен" : "Бэкенд нестабилен", payload.db ? "ok" : "warning");
   } catch {
-    setHealth("Backend unavailable", "error");
+    setHealth("Бэкенд недоступен", "error");
   }
 }
 
 async function loadNotes() {
-  notesElement.innerHTML = '<p class="empty">Loading notes...</p>';
+  notesElement.innerHTML = '<p class="empty">Загрузка заметок...</p>';
   try {
     const response = await fetch("/api/notes");
-    if (!response.ok) throw new Error("Unable to load notes");
+    if (!response.ok) throw new Error("Невозмоно загрузить новые заметки");
     renderNotes(await response.json());
   } catch {
-    notesElement.innerHTML = '<p class="empty error-text">Could not load notes. Check the backend.</p>';
+    notesElement.innerHTML = '<p class="empty error-text">Не получилось загрузить заметки. Проверьте бэкенд.</p>';
   }
 }
 
@@ -62,7 +62,7 @@ form.addEventListener("submit", async (event) => {
   const data = new FormData(form);
   const submitButton = form.querySelector("button[type=submit]");
   submitButton.disabled = true;
-  messageElement.textContent = "Saving...";
+  messageElement.textContent = "Сохранение...";
 
   try {
     const response = await fetch("/api/notes", {
@@ -70,12 +70,12 @@ form.addEventListener("submit", async (event) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title: data.get("title"), body: data.get("body") })
     });
-    if (!response.ok) throw new Error("Unable to save note");
+    if (!response.ok) throw new Error("Невозможно сохранить заметку");
     form.reset();
-    messageElement.textContent = "Note saved.";
+    messageElement.textContent = "Заметка сохранена.";
     await loadNotes();
   } catch {
-    messageElement.textContent = "Could not save note.";
+    messageElement.textContent = "Не получилось сохранить заметку.";
   } finally {
     submitButton.disabled = false;
   }

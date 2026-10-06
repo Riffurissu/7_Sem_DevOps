@@ -1,21 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#102a43" />
-    <title>Notes desk</title>
+    <title>Заметки DevOps</title>
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <main class="shell">
       <header class="hero">
-        <p class="eyebrow">DEVOPS STACK / NOTES</p>
-        <h1>A quiet place for<br /><em>useful thoughts.</em></h1>
-        <p class="lede">A small production-style workspace backed by Go, PostgreSQL and a container gateway.</p>
+        <p class="eyebrow">Заметки DevOps</p>
+        <p class="lede">Небольшое приложение для заметок, написанное на Go и использующее PostgreSQL и шлюз nginx.</p>
         <div class="meta-row">
-          <span id="health" class="status status-pending">Checking backend...</span>
-          <span class="release">release <strong id="release-version">__RELEASE_VERSION__</strong></span>
+          <span id="health" class="status status-pending">Проверка доступности бэкенда...</span>
+          <span class="release">Версия выпуска <strong id="release-version">__RELEASE_VERSION__</strong></span>
         </div>
       </header>
 
@@ -23,28 +22,28 @@
         <form id="note-form" class="note-form">
           <div class="section-heading">
             <span class="section-number">01</span>
-            <h2>New note</h2>
+            <h2>Новая заметка</h2>
           </div>
           <label>
-            Title
-            <input name="title" type="text" maxlength="160" placeholder="What should you remember?" required />
+            Название
+            <input name="title" type="text" maxlength="160" placeholder="Как должна называться Ваша заметка" required />
           </label>
           <label>
-            Body
-            <textarea name="body" rows="7" maxlength="5000" placeholder="Write it down while it is clear..."></textarea>
+            Описание
+            <textarea name="body" rows="7" maxlength="5000" placeholder="Пояснение к заметке"></textarea>
           </label>
-          <button type="submit">Save note <span aria-hidden="true">↗</span></button>
+          <button type="submit">Сохранить заметку <span aria-hidden="true">↗</span></button>
           <p id="form-message" class="form-message" role="status"></p>
         </form>
 
         <section class="notes-panel" aria-live="polite">
           <div class="section-heading">
             <span class="section-number">02</span>
-            <h2>Recent notes</h2>
-            <button id="refresh" class="refresh" type="button">Refresh</button>
+            <h2>Недавние заметки</h2>
+            <button id="refresh" class="refresh" type="button">Обновить</button>
           </div>
           <div id="notes" class="notes-list">
-            <p class="empty">Loading notes...</p>
+            <p class="empty">Загрузка заметок...</p>
           </div>
         </section>
       </section>
